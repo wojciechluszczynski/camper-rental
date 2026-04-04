@@ -13,6 +13,7 @@ interface Props {
   camperName: string
   pricePerDay: number
   bookedRanges: { from: Date; to: Date }[]
+  initialRange?: { from: Date; to: Date }
 }
 
 interface FormData {
@@ -21,9 +22,9 @@ interface FormData {
   phone: string
 }
 
-export function BookingForm({ camperId, camperName, pricePerDay, bookedRanges }: Props) {
+export function BookingForm({ camperId, camperName, pricePerDay, bookedRanges, initialRange }: Props) {
   const router = useRouter()
-  const [range, setRange] = useState<DateRange | undefined>()
+  const [range, setRange] = useState<DateRange | undefined>(initialRange)
   const [form, setForm] = useState<FormData>({ name: '', email: '', phone: '' })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')

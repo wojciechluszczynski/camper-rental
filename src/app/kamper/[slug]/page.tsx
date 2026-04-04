@@ -10,10 +10,12 @@ import styles from './page.module.css'
 
 interface Props {
   params: Promise<{ slug: string }>
+  searchParams: Promise<{ od?: string; do?: string }>
 }
 
-export default async function CamperPage({ params }: Props) {
+export default async function CamperPage({ params, searchParams }: Props) {
   const { slug } = await params
+  const { od, do: dateTo } = await searchParams
   const supabase = createServiceClient()
 
   const { data: camper } = await supabase
@@ -35,6 +37,8 @@ export default async function CamperPage({ params }: Props) {
     from: new Date(b.date_from),
     to: new Date(b.date_to),
   }))
+
+  const initialRange = od && dateTo ? { from: new Date(od), to: new Date(dateTo) } : undefined
 
   return (
     <>
@@ -61,6 +65,7 @@ export default async function CamperPage({ params }: Props) {
                   camperName={(camper as Camper).name}
                   pricePerDay={(camper as Camper).price_per_day}
                   bookedRanges={bookedRanges}
+                  initialRange={initialRange}
                 />
               </div>
             </div>
