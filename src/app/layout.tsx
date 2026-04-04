@@ -1,19 +1,15 @@
-import type { Metadata } from "next";
-import "./globals.css";
+import type { Metadata } from 'next'
+import './globals.css'
 
 export const metadata: Metadata = {
-  title: "Kamperownia",
-  description: "Wynajem kamperów",
-};
+  title: 'Kamperownia — Wynajem Kamperów',
+  description: 'Wynajem kamperów na wakacje. Zarezerwuj swój kamper już dziś!',
+}
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pl">
       <body>{children}</body>
     </html>
-  );
+  )
 }
