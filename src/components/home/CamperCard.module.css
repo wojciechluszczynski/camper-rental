@@ -33,6 +33,12 @@
   background: linear-gradient(135deg, #E8F5E9, #C8E6C9);
 }
 
+.placeholderImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .availBadge {
   position: absolute;
   top: 12px;

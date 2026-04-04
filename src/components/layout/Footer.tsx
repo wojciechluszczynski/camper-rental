@@ -27,7 +27,7 @@ export function Footer() {
             </li>
             <li>
               <IconPin size={16} />
-              <span>Warszawa, Polska</span>
+              <span>Rzeszów, Polska</span>
             </li>
           </ul>
         </div>
@@ -35,7 +35,7 @@ export function Footer() {
         <div className={styles.col}>
           <h4 className={styles.colTitle}>Strony</h4>
           <ul className={styles.linkList}>
-            <li><Link href="/wynajem-kampera-warszawa">Wynajem — Warszawa</Link></li>
+            <li><Link href="/wynajem-kampera-rzeszow">Wynajem — Rzeszów</Link></li>
             <li><Link href="/wynajem-kampera-polska">Wynajem — Polska</Link></li>
             <li><Link href="/wynajem-kampera-na-weekend">Wynajem na weekend</Link></li>
             <li><Link href="/wynajem-kampera-europa">Wynajem — Europa</Link></li>

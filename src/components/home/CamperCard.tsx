@@ -28,12 +28,12 @@ export function CamperCard({ camper, dateFrom, dateTo }: Props) {
         {camper.images.length > 0 ? (
           <img src={camper.images[0]} alt={camper.name} />
         ) : (
-          <div className={styles.imagePlaceholder} aria-hidden="true" />
+          <img src="/camper-placeholder.svg" alt={camper.name} className={styles.placeholderImg} />
         )}
         {days > 0 && (
           <div className={styles.availBadge}>
             <span className={styles.availDot} />
-            Dostepny
+            Dostępny
           </div>
         )}
       </div>
@@ -44,12 +44,12 @@ export function CamperCard({ camper, dateFrom, dateTo }: Props) {
           <div className={styles.price}>
             {totalPrice ? (
               <>
-                <span className={styles.priceAmount}>{totalPrice} zl</span>
-                <span className={styles.priceUnit}>za {days} {days === 1 ? 'dobe' : days < 5 ? 'doby' : 'dob'}</span>
+                <span className={styles.priceAmount}>{totalPrice} zł</span>
+                <span className={styles.priceUnit}>za {days} {days === 1 ? 'dobę' : days < 5 ? 'doby' : 'dób'}</span>
               </>
             ) : (
               <>
-                <span className={styles.priceAmount}>{camper.price_per_day} zl</span>
+                <span className={styles.priceAmount}>{camper.price_per_day} zł</span>
                 <span className={styles.priceUnit}>/doba</span>
               </>
             )}
@@ -61,7 +61,7 @@ export function CamperCard({ camper, dateFrom, dateTo }: Props) {
         <div className={styles.specs}>
           <span className={styles.spec}>
             <IconUsers size={14} />
-            {specs.seats} osob
+            {specs.seats} osób
           </span>
           <span className={styles.spec}>
             <IconBed size={14} />
@@ -74,7 +74,7 @@ export function CamperCard({ camper, dateFrom, dateTo }: Props) {
           {specs.bathroom && (
             <span className={styles.spec}>
               <IconShower size={14} />
-              Lazienka
+              Łazienka
             </span>
           )}
           {specs.kitchen && (
@@ -86,7 +86,7 @@ export function CamperCard({ camper, dateFrom, dateTo }: Props) {
         </div>
 
         <Link href={`/kamper/${camper.slug}${searchParams}`} className={styles.btn}>
-          Sprawdz dostepnosc
+          Sprawdź dostępność
           <IconChevronRight size={16} />
         </Link>
       </div>
