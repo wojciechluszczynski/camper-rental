@@ -9,16 +9,17 @@ import type { Camper, Booking } from '@/lib/types'
 import styles from './page.module.css'
 
 interface Props {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
 export default async function CamperPage({ params }: Props) {
+  const { slug } = await params
   const supabase = createServiceClient()
 
   const { data: camper } = await supabase
     .from('campers')
     .select('*')
-    .eq('slug', params.slug)
+    .eq('slug', slug)
     .eq('active', true)
     .single()
 

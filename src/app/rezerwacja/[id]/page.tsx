@@ -6,10 +6,11 @@ import { createServiceClient } from '@/lib/supabase-server'
 import styles from './page.module.css'
 
 interface Props {
-  params: { id: string }
+  params: Promise<{ id: string }>
 }
 
 export default async function PaymentPage({ params }: Props) {
+  const { id } = await params
   const supabase = createServiceClient()
 
   let booking = null
@@ -17,7 +18,7 @@ export default async function PaymentPage({ params }: Props) {
     const { data } = await supabase
       .from('bookings')
       .select('*, campers(id, name, slug, price_per_day)')
-      .eq('id', params.id)
+      .eq('id', id)
       .single()
     booking = data
   } catch {

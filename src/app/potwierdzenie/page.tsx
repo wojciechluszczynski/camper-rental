@@ -5,11 +5,11 @@ import { createServiceClient } from '@/lib/supabase-server'
 import styles from './page.module.css'
 
 interface Props {
-  searchParams: { booking_id?: string; payment_intent?: string; payment_intent_client_secret?: string; redirect_status?: string }
+  searchParams: Promise<{ booking_id?: string; payment_intent?: string; payment_intent_client_secret?: string; redirect_status?: string }>
 }
 
 export default async function ConfirmationPage({ searchParams }: Props) {
-  const { booking_id, redirect_status } = searchParams
+  const { booking_id, redirect_status } = await searchParams
 
   // Stripe redirects with redirect_status=succeeded on success
   const isSuccess = redirect_status === 'succeeded' || redirect_status === undefined
