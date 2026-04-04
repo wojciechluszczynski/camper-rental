@@ -4,21 +4,33 @@ import styles from './FleetPreview.module.css'
 
 interface Props {
   campers: Camper[]
+  dateFrom?: Date | null
+  dateTo?: Date | null
+  searching?: boolean
 }
 
-export function FleetPreview({ campers }: Props) {
+export function FleetPreview({ campers, dateFrom, dateTo, searching }: Props) {
   return (
     <section id="fleet" className={styles.section}>
       <div className={styles.inner}>
-        <div className={styles.heading}>
-          <h2 className={styles.title}>Nasza flota</h2>
-          <p className={styles.subtitle}>Wybierz kamper idealny dla siebie i ruszaj w drogę</p>
-        </div>
-        <div className={styles.grid}>
-          {campers.map(camper => (
-            <CamperCard key={camper.id} camper={camper} />
-          ))}
-        </div>
+        {searching ? (
+          <p className={styles.searching}>Sprawdzamy dostepnosc...</p>
+        ) : campers.length === 0 ? (
+          <div className={styles.empty}>
+            <p>Brak dostepnych kamperow w wybranym terminie.</p>
+          </div>
+        ) : (
+          <div className={styles.grid}>
+            {campers.map(camper => (
+              <CamperCard
+                key={camper.id}
+                camper={camper}
+                dateFrom={dateFrom}
+                dateTo={dateTo}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   )
