@@ -5,6 +5,8 @@
   overflow: hidden;
   box-shadow: var(--shadow);
   transition: box-shadow 0.2s, transform 0.2s;
+  display: flex;
+  flex-direction: column;
 }
 
 .card:hover {
@@ -16,6 +18,7 @@
   aspect-ratio: 16/9;
   background: var(--color-surface);
   overflow: hidden;
+  position: relative;
 }
 
 .image img {
@@ -27,14 +30,38 @@
 .imagePlaceholder {
   width: 100%;
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 4rem;
-  background: linear-gradient(135deg, #F0FDF4, #DCFCE7);
+  background: linear-gradient(135deg, #E8F5E9, #C8E6C9);
 }
 
-.body { padding: 20px; }
+.availBadge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: white;
+  border-radius: 100px;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  box-shadow: var(--shadow);
+}
+
+.availDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-primary);
+}
+
+.body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
 
 .header {
   display: flex;
@@ -51,8 +78,8 @@
 
 .price {
   display: flex;
-  align-items: baseline;
-  gap: 2px;
+  flex-direction: column;
+  align-items: flex-end;
   flex-shrink: 0;
 }
 
@@ -60,10 +87,11 @@
   font-size: 1.25rem;
   font-weight: 800;
   color: var(--color-primary);
+  line-height: 1.2;
 }
 
 .priceUnit {
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   color: var(--color-text-muted);
 }
 
@@ -86,6 +114,9 @@
 }
 
 .spec {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   font-size: 0.8125rem;
   background: var(--color-surface);
   border-radius: 100px;
@@ -93,8 +124,13 @@
   color: var(--color-text-muted);
 }
 
+.spec svg { color: var(--color-primary); flex-shrink: 0; }
+
 .btn {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   text-align: center;
   background: var(--color-primary);
   color: white;
@@ -103,6 +139,7 @@
   padding: 12px;
   border-radius: var(--radius);
   transition: background 0.15s;
+  margin-top: auto;
 }
 
 .btn:hover { background: var(--color-primary-dark); }
