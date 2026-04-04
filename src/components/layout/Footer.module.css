@@ -1,0 +1,99 @@
+.footer {
+  background: var(--color-primary-dark);
+  color: #E5F0EA;
+  padding-top: clamp(40px, 6vw, 64px);
+}
+
+.inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-pad) 48px;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 40px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+  font-size: 1.125rem;
+  color: white;
+  margin-bottom: 12px;
+}
+
+.tagline {
+  font-size: 0.875rem;
+  color: #A8C5B0;
+  line-height: 1.6;
+  max-width: 220px;
+}
+
+.colTitle {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #A8C5B0;
+  margin-bottom: 16px;
+}
+
+.contactList, .linkList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contactList li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+}
+
+.contactList svg { flex-shrink: 0; color: #A8C5B0; }
+
+.contactList a, .contactList span { color: #E5F0EA; }
+.contactList a:hover { color: white; text-decoration: underline; }
+
+.linkList li { font-size: 0.875rem; }
+.linkList a { color: #A8C5B0; transition: color 0.15s; }
+.linkList a:hover { color: white; }
+
+.payments {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.payBadge {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #E5F0EA;
+}
+
+.bottom {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding: 20px var(--container-pad);
+  max-width: var(--container-max);
+  margin: 0 auto;
+}
+
+.bottom p {
+  font-size: 0.8125rem;
+  color: #A8C5B0;
+}
+
+@media (max-width: 768px) {
+  .inner { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 480px) {
+  .inner { grid-template-columns: 1fr; }
+}

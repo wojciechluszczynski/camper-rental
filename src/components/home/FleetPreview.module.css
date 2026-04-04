@@ -1,0 +1,29 @@
+.section {
+  padding: clamp(32px, 6vw, 64px) 0 clamp(48px, 8vw, 96px);
+  background: var(--color-surface);
+}
+
+.inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-pad);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.empty {
+  text-align: center;
+  padding: 64px 0;
+  color: var(--color-text-muted);
+}
+
+.searching {
+  text-align: center;
+  padding: 64px 0;
+  color: var(--color-text-muted);
+  font-style: italic;
+}
