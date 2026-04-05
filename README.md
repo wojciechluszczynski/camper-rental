@@ -1,36 +1,142 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Kamperownia — wynajem kamperów z Rzeszowa
 
-## Getting Started
+Aplikacja webowa do wynajmu kamperów z możliwością rezerwacji i płatności online.
 
-First, run the development server:
+**🌐 [kamperownia.eu](https://kamperownia.eu)**
+
+---
+
+## Stack technologiczny
+
+| Warstwa | Technologia |
+|---|---|
+| Framework | Next.js 16 (App Router) + React 19 |
+| Baza danych | Supabase (PostgreSQL) |
+| Płatności | Stripe — BLIK, Visa, Mastercard, Apple Pay, Google Pay, P24 |
+| Stylowanie | CSS Modules (bez Tailwind) |
+| Fonty | DM Sans + DM Serif Display (Google Fonts) |
+| Kalendarz | react-day-picker v9 |
+| Hosting | Vercel |
+
+---
+
+## Funkcje
+
+- 🔍 **Wyszukiwanie po datach** — picker kalendarza z zakresem dat
+- 🚐 **Siatka kamperów** — 7 modeli z filtrami kategorii (na weekend, dla rodziny, z solarami…)
+- 📅 **Rezerwacja online** — wybór terminów, formularz, przekierowanie do płatności
+- 💳 **Stripe Checkout** — BLIK, karty, Apple Pay, Google Pay, P24
+- 🚚 **Dostawa kampera** — opcjonalne zamówienie dowozu pod wskazany adres
+- 🗺️ **SEO subpages** — Rzeszów, Polska, Weekend, Europa
+- 📧 **Newsletter** — formularz zapisu w stopce
+
+---
+
+## Instalacja lokalna
+
+```bash
+git clone https://github.com/wojciechluszczynski/camper-rental.git
+cd camper-rental
+npm install
+```
+
+Stwórz plik `.env.local`:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+STRIPE_SECRET_KEY=sk_...
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_...
+STRIPE_WEBHOOK_SECRET=whsec_...
+```
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Aplikacja dostępna pod: `http://localhost:3000`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Baza danych
 
-## Learn More
+### Schema
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+# W Supabase SQL Editor wklej i uruchom:
+supabase/schema.sql
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Dane początkowe (7 kamperów)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+# Po uruchomieniu schema — wklej i uruchom:
+supabase/seed.sql
+```
 
-## Deploy on Vercel
+Seed zawiera 7 modeli kamperów z prawdziwymi zdjęciami i opisami:
+- Chausson V594 Max (2023)
+- Chausson 640 (z solarami 400W)
+- Bürstner Limited T 660
+- Chausson 777GA Titanium (2025)
+- Chausson 720 Titanium (5 osób)
+- Rimor Kilig 5 (2025, 6 osób)
+- Rimor Kilig 50 (2025, 6 osób)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deployment na Vercel
+
+1. Połącz repo na [vercel.com](https://vercel.com/new)
+2. Dodaj zmienne środowiskowe (Settings → Environment Variables)
+3. Deploy — Vercel wykrywa Next.js automatycznie
+
+### Stripe Webhook
+
+Po deploymencie dodaj endpoint w [Stripe Dashboard](https://dashboard.stripe.com/webhooks):
+
+```
+https://twoja-domena.vercel.app/api/stripe/webhook
+```
+
+Event: `payment_intent.succeeded`
+
+---
+
+## Struktura projektu
+
+```
+src/
+├── app/
+│   ├── page.tsx                    # Strona główna
+│   ├── kamper/[slug]/              # Strona kampera
+│   ├── rezerwacja/[id]/            # Płatność Stripe
+│   ├── potwierdzenie/              # Potwierdzenie rezerwacji
+│   ├── admin/                      # Panel rezerwacji
+│   ├── api/
+│   │   ├── bookings/create/        # Tworzenie rezerwacji
+│   │   └── stripe/webhook/         # Stripe webhook
+│   └── wynajem-kampera-*/          # Podstrony SEO
+├── components/
+│   ├── home/                       # SearchBar, CamperCard, FleetPreview, CamperFilters
+│   ├── camper/                     # Gallery, Specs, BookingForm
+│   ├── layout/                     # Header, Footer
+│   └── icons/                      # SVG ikony
+├── lib/
+│   ├── supabase.ts / supabase-server.ts
+│   ├── stripe.ts
+│   └── types.ts
+supabase/
+├── schema.sql                      # Definicja tabel
+└── seed.sql                        # Dane startowe
+```
+
+---
+
+## Kontakt
+
+**Kamperownia** — wynajem kamperów, Rzeszów
+📧 kontakt@kamperownia.eu
+📞 +48 500 818 172
+📍 Lubelska 50, 35-233 Rzeszów
