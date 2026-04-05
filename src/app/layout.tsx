@@ -1,15 +1,16 @@
 import type { Metadata } from 'next'
-import { Inter, Playfair_Display } from 'next/font/google'
+import { DM_Sans, DM_Serif_Display } from 'next/font/google'
 import './globals.css'
 
-const inter = Inter({
+const dmSans = DM_Sans({
   subsets: ['latin', 'latin-ext'],
   variable: '--font-sans',
   display: 'swap',
 })
 
-const playfair = Playfair_Display({
+const dmSerifDisplay = DM_Serif_Display({
   subsets: ['latin', 'latin-ext'],
+  weight: '400',
   variable: '--font-display',
   display: 'swap',
 })
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pl" className={`${inter.variable} ${playfair.variable}`}>
+    <html lang="pl" className={`${dmSans.variable} ${dmSerifDisplay.variable}`}>
       <body>{children}</body>
     </html>
   )
