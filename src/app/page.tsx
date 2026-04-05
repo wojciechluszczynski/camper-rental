@@ -4,6 +4,8 @@ import { BookingHero } from '@/components/home/BookingHero'
 import { createServiceClient } from '@/lib/supabase-server'
 import type { Camper } from '@/lib/types'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata = {
   title: 'Wynajem Kamperów — Kamperownia',
   description: 'Wynajmij kampera w Polsce i Europie. Wybierz termin, sprawdź dostępność i zarezerwuj online w 5 minut. BLIK, Visa, Apple Pay.',
