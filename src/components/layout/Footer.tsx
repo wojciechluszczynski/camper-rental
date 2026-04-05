@@ -19,15 +19,15 @@ export function Footer() {
           <ul className={styles.contactList}>
             <li>
               <IconMail size={16} />
-              <a href="mailto:kontakt@kamperownia.pl">kontakt@kamperownia.pl</a>
+              <a href="mailto:kontakt@kamperownia.eu">kontakt@kamperownia.eu</a>
             </li>
             <li>
               <IconPhone size={16} />
-              <a href="tel:+48500000000">+48 500 000 000</a>
+              <a href="tel:+48500818172">+48 500 818 172</a>
             </li>
             <li>
               <IconPin size={16} />
-              <span>Rzeszów, Polska</span>
+              <span>Lubelska 50, 35-233 Rzeszów</span>
             </li>
           </ul>
         </div>
