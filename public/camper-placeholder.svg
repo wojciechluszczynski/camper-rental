@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 270" fill="none">
+  <!-- Sky gradient background -->
+  <rect width="480" height="270" fill="#E8F5E9"/>
+  <rect width="480" height="120" fill="url(#sky)"/>
+
+  <!-- Rolling hills -->
+  <ellipse cx="120" cy="200" rx="160" ry="60" fill="#C8E6C9"/>
+  <ellipse cx="380" cy="210" rx="180" ry="70" fill="#A5D6A7"/>
+  <rect x="0" y="200" width="480" height="70" fill="#81C784"/>
+
+  <!-- Road -->
+  <rect x="0" y="195" width="480" height="10" fill="#757575" rx="2"/>
+  <rect x="210" y="198" width="20" height="4" fill="#BDBDBD" rx="1"/>
+  <rect x="250" y="198" width="20" height="4" fill="#BDBDBD" rx="1"/>
+
+  <!-- Camper body -->
+  <rect x="120" y="130" width="200" height="70" rx="8" fill="#2D6A4F"/>
+  <!-- Cab section -->
+  <rect x="290" y="145" width="60" height="55" rx="6" fill="#1B4332"/>
+  <!-- Roof rack -->
+  <rect x="118" y="126" width="204" height="8" rx="3" fill="#1B4332"/>
+
+  <!-- Windows on body -->
+  <rect x="135" y="143" width="36" height="28" rx="4" fill="#B2DFDB" opacity="0.9"/>
+  <rect x="181" y="143" width="36" height="28" rx="4" fill="#B2DFDB" opacity="0.9"/>
+  <rect x="227" y="143" width="36" height="28" rx="4" fill="#B2DFDB" opacity="0.9"/>
+  <!-- Window reflections -->
+  <rect x="137" y="145" width="8" height="12" rx="2" fill="white" opacity="0.4"/>
+  <rect x="183" y="145" width="8" height="12" rx="2" fill="white" opacity="0.4"/>
+  <rect x="229" y="145" width="8" height="12" rx="2" fill="white" opacity="0.4"/>
+
+  <!-- Cab window -->
+  <rect x="297" y="152" width="44" height="30" rx="4" fill="#B2DFDB" opacity="0.9"/>
+  <rect x="299" y="154" width="10" height="14" rx="2" fill="white" opacity="0.4"/>
+
+  <!-- Door -->
+  <rect x="270" y="155" width="22" height="42" rx="3" fill="#245A41" stroke="#1B4332" stroke-width="1"/>
+  <circle cx="284" cy="177" r="2.5" fill="#F4A261"/>
+
+  <!-- Accent stripe -->
+  <rect x="120" y="173" width="200" height="5" fill="#F4A261"/>
+  <rect x="290" y="173" width="60" height="5" fill="#F4A261"/>
+
+  <!-- Wheels -->
+  <circle cx="175" cy="203" r="22" fill="#212121"/>
+  <circle cx="175" cy="203" r="14" fill="#424242"/>
+  <circle cx="175" cy="203" r="7" fill="#9E9E9E"/>
+  <circle cx="175" cy="203" r="3" fill="#212121"/>
+
+  <circle cx="310" cy="203" r="22" fill="#212121"/>
+  <circle cx="310" cy="203" r="14" fill="#424242"/>
+  <circle cx="310" cy="203" r="7" fill="#9E9E9E"/>
+  <circle cx="310" cy="203" r="3" fill="#212121"/>
+
+  <!-- Headlight -->
+  <rect x="348" y="163" width="10" height="8" rx="2" fill="#FFF9C4"/>
+
+  <!-- Solar panel on roof -->
+  <rect x="140" y="118" width="60" height="10" rx="2" fill="#0D47A1" opacity="0.7"/>
+  <line x1="160" y1="118" x2="160" y2="128" stroke="#1565C0" stroke-width="1"/>
+  <line x1="180" y1="118" x2="180" y2="128" stroke="#1565C0" stroke-width="1"/>
+
+  <!-- Trees -->
+  <rect x="60" y="155" width="8" height="40" fill="#5D4037"/>
+  <ellipse cx="64" cy="148" rx="18" ry="22" fill="#388E3C"/>
+  <rect x="395" y="160" width="7" height="35" fill="#5D4037"/>
+  <ellipse cx="398" cy="153" rx="16" ry="20" fill="#2E7D32"/>
+
+  <!-- Sun -->
+  <circle cx="420" cy="45" r="25" fill="#FFF9C4"/>
+  <circle cx="420" cy="45" r="18" fill="#FFF176"/>
+
+  <!-- Gradients -->
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#E3F2FD"/>
+      <stop offset="100%" stop-color="#E8F5E9"/>
+    </linearGradient>
+  </defs>
+</svg>

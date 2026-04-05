@@ -1,69 +1,106 @@
 'use client'
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
+import { DayPicker } from 'react-day-picker'
+import type { DateRange } from 'react-day-picker'
+import { pl } from 'date-fns/locale'
 import { format } from 'date-fns'
-import { IconCalendar, IconSearch } from '@/components/icons'
+import { IconSearch } from '@/components/icons'
 import styles from './SearchBar.module.css'
 
 interface Props {
   onSearch: (from: Date | null, to: Date | null) => void
 }
 
-export function SearchBar({ onSearch }: Props) {
-  const today = format(new Date(), 'yyyy-MM-dd')
-  const [from, setFrom] = useState('')
-  const [to, setTo] = useState('')
+function formatDate(d: Date) {
+  return format(d, 'd MMM', { locale: pl })
+}
 
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    onSearch(from ? new Date(from) : null, to ? new Date(to) : null)
+export function SearchBar({ onSearch }: Props) {
+  const [range, setRange] = useState<DateRange | undefined>()
+  const [calOpen, setCalOpen] = useState(false)
+  const wrapRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    function onMouseDown(e: MouseEvent) {
+      if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) {
+        setCalOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', onMouseDown)
+    return () => document.removeEventListener('mousedown', onMouseDown)
+  }, [])
+
+  function handleSelect(r: DateRange | undefined) {
+    setRange(r)
+    if (r?.from && r?.to) {
+      onSearch(r.from, r.to)
+      setCalOpen(false)
+    }
   }
 
-  function handleClear() {
-    setFrom('')
-    setTo('')
+  function handleClear(e: React.MouseEvent) {
+    e.stopPropagation()
+    setRange(undefined)
     onSearch(null, null)
   }
 
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    onSearch(range?.from ?? null, range?.to ?? null)
+    setCalOpen(false)
+  }
+
+  const fromLabel = range?.from ? formatDate(range.from) : 'Odbiór kampera'
+  const toLabel = range?.to ? formatDate(range.to) : 'Data zwrotu'
+  const hasRange = range?.from || range?.to
+
   return (
-    <form className={styles.bar} onSubmit={handleSubmit}>
-      <div className={styles.field}>
-        <label className={styles.label}>
-          <IconCalendar size={16} />
-          Odbior
-        </label>
-        <input
-          className={styles.input}
-          type="date"
-          min={today}
-          value={from}
-          onChange={e => setFrom(e.target.value)}
-        />
-      </div>
-      <div className={styles.divider} />
-      <div className={styles.field}>
-        <label className={styles.label}>
-          <IconCalendar size={16} />
-          Zwrot
-        </label>
-        <input
-          className={styles.input}
-          type="date"
-          min={from || today}
-          value={to}
-          onChange={e => setTo(e.target.value)}
-        />
-      </div>
-      <div className={styles.actions}>
-        {(from || to) && (
+    <div className={styles.wrapper} ref={wrapRef}>
+      <form className={styles.bar} onSubmit={handleSubmit}>
+        <button
+          type="button"
+          className={`${styles.field} ${!range?.from ? styles.placeholder : ''}`}
+          onClick={() => setCalOpen(v => !v)}
+          aria-label="Wybierz daty"
+        >
+          <span className={styles.fieldLabel}>Kiedy jedziesz?</span>
+          <span className={styles.fieldValue}>
+            {range?.from && range?.to
+              ? `${formatDate(range.from)} → ${formatDate(range.to)}`
+              : range?.from
+                ? `${formatDate(range.from)} → ?`
+                : 'Wybierz daty'}
+          </span>
+        </button>
+
+        <div className={styles.divider} />
+
+        {hasRange && (
           <button type="button" className={styles.clearBtn} onClick={handleClear}>
-            Wyczysc
+            ✕
           </button>
         )}
+
         <button type="submit" className={styles.searchBtn}>
           <IconSearch size={18} />
-          Szukaj
+          <span>Szukaj</span>
         </button>
-      </div>
-    </form>
+      </form>
+
+      {calOpen && (
+        <div className={styles.calPopup}>
+          <DayPicker
+            mode="range"
+            numberOfMonths={2}
+            selected={range}
+            onSelect={handleSelect}
+            locale={pl}
+            weekStartsOn={1}
+            disabled={{ before: new Date() }}
+            showOutsideDays={false}
+          />
+        </div>
+      )}
+    </div>
   )
 }

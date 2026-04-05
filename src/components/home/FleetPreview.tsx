@@ -14,10 +14,10 @@ export function FleetPreview({ campers, dateFrom, dateTo, searching }: Props) {
     <section id="fleet" className={styles.section}>
       <div className={styles.inner}>
         {searching ? (
-          <p className={styles.searching}>Sprawdzamy dostepnosc...</p>
+          <p className={styles.searching}>Sprawdzamy dostępność...</p>
         ) : campers.length === 0 ? (
           <div className={styles.empty}>
-            <p>Brak dostepnych kamperow w wybranym terminie.</p>
+            <p>Brak dostępnych kamperów w wybranym terminie.</p>
           </div>
         ) : (
           <div className={styles.grid}>

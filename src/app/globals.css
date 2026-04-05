@@ -1,30 +1,144 @@
+@import 'react-day-picker/style.css';
+
 :root {
   --color-primary: #2D6A4F;
   --color-primary-dark: #1B4332;
   --color-accent: #F4A261;
   --color-bg: #FFFFFF;
   --color-surface: #F8F9FA;
-  --color-text: #1A1A1A;
+  --color-text: #111827;
   --color-text-muted: #6B7280;
   --color-border: #E5E7EB;
-  --radius: 8px;
-  --radius-lg: 16px;
+  --radius: 10px;
+  --radius-lg: 18px;
   --container-max: 1200px;
   --container-pad: clamp(16px, 4vw, 48px);
-  --shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+  --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-lg: 0 12px 32px -4px rgba(0,0,0,0.12), 0 4px 8px -2px rgba(0,0,0,0.06);
+  --shadow-xl: 0 24px 48px -8px rgba(0,0,0,0.18);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
   color: var(--color-text);
   background: var(--color-bg);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display, var(--font-sans, system-ui));
+  letter-spacing: -0.02em;
+  line-height: 1.15;
 }
 
 img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
 button { cursor: pointer; font-family: inherit; border: none; }
+
+/* ── react-day-picker overrides ── */
+.rdp-root {
+  --rdp-accent-color: #2D6A4F;
+  --rdp-accent-background-color: #DCFCE7;
+  --rdp-day-width: 44px;
+  --rdp-day-height: 44px;
+  --rdp-month-caption-font: 600 1rem/1.4 var(--font-sans, system-ui);
+  font-family: var(--font-sans, system-ui);
+}
+
+.rdp-root .rdp-months {
+  gap: 32px;
+}
+
+.rdp-root .rdp-month_caption {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #111827;
+  text-align: center;
+  padding-bottom: 12px;
+}
+
+.rdp-root .rdp-weekdays {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #9CA3AF;
+}
+
+.rdp-root .rdp-day {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  border-radius: 0;
+  transition: background 0.1s;
+}
+
+.rdp-root .rdp-day:hover:not([disabled]):not(.rdp-selected) {
+  background: #F0FDF4;
+  border-radius: 50%;
+}
+
+.rdp-root .rdp-day_button {
+  width: var(--rdp-day-width);
+  height: var(--rdp-day-height);
+  border-radius: 50%;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.rdp-root .rdp-selected .rdp-day_button,
+.rdp-root .rdp-range_start .rdp-day_button,
+.rdp-root .rdp-range_end .rdp-day_button {
+  background: #2D6A4F;
+  color: white;
+  border-radius: 50%;
+}
+
+.rdp-root .rdp-range_middle .rdp-day_button {
+  background: transparent;
+  color: #111827;
+}
+
+.rdp-root .rdp-range_middle {
+  background: #DCFCE7;
+  border-radius: 0;
+}
+
+.rdp-root .rdp-range_start {
+  border-radius: 50% 0 0 50%;
+}
+
+.rdp-root .rdp-range_end {
+  border-radius: 0 50% 50% 0;
+}
+
+.rdp-root .rdp-range_start.rdp-range_end {
+  border-radius: 50%;
+}
+
+.rdp-root [disabled] {
+  color: #D1D5DB;
+  pointer-events: none;
+}
+
+.rdp-root .rdp-nav button {
+  background: none;
+  border: 1.5px solid #E5E7EB;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.rdp-root .rdp-nav button:hover {
+  border-color: #2D6A4F;
+  background: #F0FDF4;
+}

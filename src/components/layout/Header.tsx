@@ -11,7 +11,7 @@ export function Header() {
           <span>Kamperownia</span>
         </Link>
         <nav className={styles.nav}>
-          <Link href="/#fleet">Kamery</Link>
+          <Link href="/#fleet">Kampery</Link>
           <Link href="/#jak-to-dziala">Jak to działa</Link>
           <Link href="/#kontakt">Kontakt</Link>
         </nav>

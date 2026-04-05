@@ -26,12 +26,12 @@ export default function WeekendPage() {
           </p>
 
           <div className={styles.section}>
-            <h2 className={styles.h2}>Weekendowe destynacje z Warszawy</h2>
+            <h2 className={styles.h2}>Weekendowe destynacje z Rzeszowa</h2>
             <ul className={styles.ul}>
-              <li><strong>Kampinos:</strong> 40 km od centrum, kempingi na skraju puszczy</li>
-              <li><strong>Mazury:</strong> 3 h jazdy — jezioro Śniardwy, Niegocin</li>
-              <li><strong>Roztocze:</strong> 4 h — rezerwat, spokój, dzikie rzeki</li>
-              <li><strong>Góry Świętokrzyskie:</strong> 3 h — szlaki, widoki, brak tłumów</li>
+              <li><strong>Bieszczady:</strong> 1,5 h jazdy — Ustrzyki, Cisna, cisza i dzikie szlaki</li>
+              <li><strong>Roztocze:</strong> 1,5 h — rezerwat, spokój, rzeka San</li>
+              <li><strong>Tatry:</strong> 2 h — Zakopane, Dolina Chochołowska, widoki na szczyty</li>
+              <li><strong>Pieniny:</strong> 2 h — Dunajec, Trzy Korony, spływ przełomem</li>
             </ul>
           </div>
 
