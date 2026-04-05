@@ -5,7 +5,7 @@ import { stripe } from '@/lib/stripe'
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
-    const { camper_id, user_email, user_name, user_phone, date_from, date_to, total_price } = body
+    const { camper_id, user_email, user_name, user_phone, date_from, date_to, total_price, delivery_address } = body
 
     if (!camper_id || !user_email || !user_name || !user_phone || !date_from || !date_to || !total_price) {
       return NextResponse.json({ error: 'Brakujące pola' }, { status: 400 })
@@ -25,6 +25,7 @@ export async function POST(req: NextRequest) {
         date_to,
         total_price: Number(total_price),
         status: 'pending',
+        ...(delivery_address ? { delivery_address } : {}),
       })
       .select()
       .single()

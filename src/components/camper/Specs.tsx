@@ -1,34 +1,53 @@
+import { IconUsers, IconBed, IconShower, IconKitchen, IconYear } from '@/components/icons'
 import type { CamperSpecs } from '@/lib/types'
 import styles from './Specs.module.css'
 
-interface Props {
-  specs: CamperSpecs
-}
+interface Props { specs: CamperSpecs }
 
 export function Specs({ specs }: Props) {
-  const items = [
-    { icon: '👥', label: 'Miejsca siedzące', value: `${specs.seats} osób` },
-    { icon: '🛏', label: 'Miejsca do spania', value: `${specs.sleeping_spots} miejsc` },
-    { icon: '📏', label: 'Długość', value: `${specs.length_m} m` },
-    { icon: '📅', label: 'Rok produkcji', value: String(specs.year) },
-    { icon: '⚙️', label: 'Skrzynia biegów', value: specs.transmission },
-    { icon: '🍳', label: 'Kuchnia', value: specs.kitchen ? 'Tak' : 'Nie' },
-    { icon: '🚿', label: 'Łazienka', value: specs.bathroom ? 'Tak' : 'Nie' },
-  ]
-
   return (
     <div className={styles.specs}>
       <h2 className={styles.title}>Specyfikacja</h2>
       <div className={styles.grid}>
-        {items.map((item, i) => (
-          <div key={i} className={styles.item}>
-            <span className={styles.icon}>{item.icon}</span>
+        <div className={styles.item}>
+          <IconUsers size={20} />
+          <div>
+            <span className={styles.label}>Miejsca</span>
+            <span className={styles.value}>{specs.seats} osób</span>
+          </div>
+        </div>
+        <div className={styles.item}>
+          <IconBed size={20} />
+          <div>
+            <span className={styles.label}>Sypialnia</span>
+            <span className={styles.value}>{specs.sleeping_spots} miejsc</span>
+          </div>
+        </div>
+        <div className={styles.item}>
+          <IconYear size={20} />
+          <div>
+            <span className={styles.label}>Rocznik</span>
+            <span className={styles.value}>{specs.year}</span>
+          </div>
+        </div>
+        {specs.bathroom && (
+          <div className={styles.item}>
+            <IconShower size={20} />
             <div>
-              <div className={styles.label}>{item.label}</div>
-              <div className={styles.value}>{item.value}</div>
+              <span className={styles.label}>Łazienka</span>
+              <span className={styles.value}>Tak</span>
             </div>
           </div>
-        ))}
+        )}
+        {specs.kitchen && (
+          <div className={styles.item}>
+            <IconKitchen size={20} />
+            <div>
+              <span className={styles.label}>Kuchnia</span>
+              <span className={styles.value}>Tak</span>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )

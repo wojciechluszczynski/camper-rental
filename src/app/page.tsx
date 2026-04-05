@@ -1,10 +1,13 @@
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
-import { Hero } from '@/components/home/Hero'
-import { FleetPreview } from '@/components/home/FleetPreview'
-import { HowItWorks } from '@/components/home/HowItWorks'
+import { BookingHero } from '@/components/home/BookingHero'
 import { createServiceClient } from '@/lib/supabase-server'
 import type { Camper } from '@/lib/types'
+
+export const metadata = {
+  title: 'Wynajem Kamperów — Kamperownia',
+  description: 'Wynajmij kampera w Polsce i Europie. Wybierz termin, sprawdź dostępność i zarezerwuj online w 5 minut. BLIK, Visa, Apple Pay.',
+}
 
 export default async function HomePage() {
   let campers: Camper[] = []
@@ -24,9 +27,7 @@ export default async function HomePage() {
     <>
       <Header />
       <main>
-        <Hero />
-        <FleetPreview campers={campers} />
-        <HowItWorks />
+        <BookingHero campers={campers} />
       </main>
       <Footer />
     </>

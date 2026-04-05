@@ -27,6 +27,7 @@ create table bookings (
   total_price        numeric(10,2) not null,
   status             text not null default 'pending' check (status in ('pending', 'paid', 'cancelled')),
   stripe_payment_id  text,
+  delivery_address   text,
   created_at         timestamptz default now()
 );
 

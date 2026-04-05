@@ -13,18 +13,21 @@ interface Props {
   camperName: string
   pricePerDay: number
   bookedRanges: { from: Date; to: Date }[]
+  initialRange?: { from: Date; to: Date }
 }
 
 interface FormData {
   name: string
   email: string
   phone: string
+  deliveryRequested: boolean
+  deliveryAddress: string
 }
 
-export function BookingForm({ camperId, camperName, pricePerDay, bookedRanges }: Props) {
+export function BookingForm({ camperId, camperName, pricePerDay, bookedRanges, initialRange }: Props) {
   const router = useRouter()
-  const [range, setRange] = useState<DateRange | undefined>()
-  const [form, setForm] = useState<FormData>({ name: '', email: '', phone: '' })
+  const [range, setRange] = useState<DateRange | undefined>(initialRange)
+  const [form, setForm] = useState<FormData>({ name: '', email: '', phone: '', deliveryRequested: false, deliveryAddress: '' })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
@@ -64,6 +67,7 @@ export function BookingForm({ camperId, camperName, pricePerDay, bookedRanges }:
           date_from: format(range.from, 'yyyy-MM-dd'),
           date_to: format(range.to, 'yyyy-MM-dd'),
           total_price: totalPrice,
+          ...(form.deliveryRequested && form.deliveryAddress ? { delivery_address: form.deliveryAddress } : {}),
         }),
       })
 
@@ -133,6 +137,32 @@ export function BookingForm({ camperId, camperName, pricePerDay, bookedRanges }:
           onChange={e => setForm(f => ({ ...f, phone: e.target.value }))}
           required
         />
+      </div>
+
+      {/* Delivery option */}
+      <div className={styles.deliveryBox}>
+        <label className={styles.deliveryToggle}>
+          <input
+            type="checkbox"
+            checked={form.deliveryRequested}
+            onChange={e => setForm(f => ({ ...f, deliveryRequested: e.target.checked }))}
+          />
+          <span>Chcę dostawę kampera pod wskazany adres</span>
+        </label>
+        {form.deliveryRequested && (
+          <>
+            <textarea
+              className={styles.deliveryInput}
+              placeholder="Podaj adres dostawy (ulica, miasto, kod pocztowy)..."
+              value={form.deliveryAddress}
+              onChange={e => setForm(f => ({ ...f, deliveryAddress: e.target.value }))}
+              rows={3}
+            />
+            <p className={styles.deliveryNote}>
+              💬 Cena dostawy ustalana indywidualnie — skontaktujemy się z Tobą po złożeniu rezerwacji.
+            </p>
+          </>
+        )}
       </div>
 
       {error && <p className={styles.error}>{error}</p>}
