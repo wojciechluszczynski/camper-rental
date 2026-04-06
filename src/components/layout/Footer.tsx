@@ -94,11 +94,11 @@ export function Footer() {
         <div className={styles.col}>
           <h4 className={styles.colTitle}>Informacje</h4>
           <ul className={styles.linkList}>
-            <li><Link href="/#jak-to-dziala">Jak to działa</Link></li>
             <li><Link href="/#fleet">Nasza flota</Link></li>
             <li><a href="mailto:kontakt@kamperownia.eu">Kontakt</a></li>
-            <li><Link href="/#kontakt">Regulamin</Link></li>
-            <li><Link href="/#kontakt">Polityka prywatności</Link></li>
+            <li><a href="tel:+48500818172">+48 500 818 172</a></li>
+            <li><Link href="/regulamin">Regulamin</Link></li>
+            <li><Link href="/polityka-prywatnosci">Polityka prywatności</Link></li>
           </ul>
         </div>
 

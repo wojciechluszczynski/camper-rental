@@ -1,9 +1,9 @@
 'use client'
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { DayPicker } from 'react-day-picker'
-import type { DateRange } from 'react-day-picker'
-import { format, differenceInCalendarDays } from 'date-fns'
+import type { DateRange, DayButtonProps } from 'react-day-picker'
+import { format, differenceInCalendarDays, isBefore, startOfDay } from 'date-fns'
 import { pl } from 'date-fns/locale'
 import 'react-day-picker/style.css'
 import styles from './BookingForm.module.css'
@@ -31,15 +31,32 @@ export function BookingForm({ camperId, camperName, pricePerDay, bookedRanges, i
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
+  const today = startOfDay(new Date())
+
   const days = range?.from && range?.to
     ? differenceInCalendarDays(range.to, range.from) + 1
     : 0
   const totalPrice = days * pricePerDay
 
   const disabledDays = [
-    { before: new Date() },
+    { before: today },
     ...bookedRanges,
   ]
+
+  // Custom day button with price below
+  const CustomDayButton = useCallback(({ day, modifiers, ...props }: DayButtonProps) => {
+    const isPast = isBefore(day.date, today)
+    const isDisabled = modifiers.disabled
+    return (
+      <button {...props} className={[props.className, styles.dayBtn].filter(Boolean).join(' ')}>
+        <span className={styles.dayNum}>{format(day.date, 'd')}</span>
+        {!isPast && !isDisabled && (
+          <span className={styles.dayPrice}>{pricePerDay} zł</span>
+        )}
+      </button>
+    )
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pricePerDay])
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -74,9 +91,12 @@ export function BookingForm({ camperId, camperName, pricePerDay, bookedRanges, i
       const data = await res.json()
       if (!res.ok) throw new Error(data.error || 'Błąd rezerwacji')
 
-      // Store client_secret for payment page
-      sessionStorage.setItem(`booking_secret_${data.booking_id}`, data.client_secret)
-      router.push(`/rezerwacja/${data.booking_id}`)
+      if (data.client_secret) {
+        sessionStorage.setItem(`booking_secret_${data.booking_id}`, data.client_secret)
+        router.push(`/rezerwacja/${data.booking_id}`)
+      } else {
+        router.push(`/potwierdzenie?booking_id=${data.booking_id}`)
+      }
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Wystąpił błąd')
     } finally {
@@ -86,18 +106,37 @@ export function BookingForm({ camperId, camperName, pricePerDay, bookedRanges, i
 
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
+
+      {/* Calendar */}
       <div className={styles.calendarWrap}>
         <DayPicker
           mode="range"
           selected={range}
           onSelect={setRange}
           disabled={disabledDays}
-          numberOfMonths={1}
+          numberOfMonths={2}
           locale={pl}
+          weekStartsOn={1}
+          showOutsideDays={false}
           className={styles.calendar}
+          components={{ DayButton: CustomDayButton }}
         />
+        <div className={styles.calFooter}>
+          <span className={styles.calNote}>
+            <span className={styles.calNoteIcon}>ⓘ</span>
+            Najniższa cena doby
+          </span>
+          <button
+            type="button"
+            className={styles.clearBtn}
+            onClick={() => setRange(undefined)}
+          >
+            Wyczyść daty
+          </button>
+        </div>
       </div>
 
+      {/* Summary */}
       {days > 0 && (
         <div className={styles.summary}>
           <div className={styles.summaryRow}>
@@ -112,6 +151,7 @@ export function BookingForm({ camperId, camperName, pricePerDay, bookedRanges, i
         </div>
       )}
 
+      {/* Contact fields */}
       <div className={styles.fields}>
         <input
           className={styles.input}
@@ -139,7 +179,7 @@ export function BookingForm({ camperId, camperName, pricePerDay, bookedRanges, i
         />
       </div>
 
-      {/* Delivery option */}
+      {/* Delivery */}
       <div className={styles.deliveryBox}>
         <label className={styles.deliveryToggle}>
           <input
@@ -159,7 +199,7 @@ export function BookingForm({ camperId, camperName, pricePerDay, bookedRanges, i
               rows={3}
             />
             <p className={styles.deliveryNote}>
-              💬 Cena dostawy ustalana indywidualnie — skontaktujemy się z Tobą po złożeniu rezerwacji.
+              💬 Cena dostawy ustalana indywidualnie — skontaktujemy się po złożeniu rezerwacji.
             </p>
           </>
         )}

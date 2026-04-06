@@ -1,24 +1,233 @@
 .form { display: flex; flex-direction: column; gap: 16px; }
 
+/* ─── Calendar ─── */
 .calendarWrap {
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
+  border-radius: 16px;
   overflow: hidden;
-  background: var(--color-surface);
+  background: #FAFAF8;
+  border: 1px solid #E8E8E4;
 }
 
 .calendar {
-  --rdp-accent-color: var(--color-primary) !important;
-  --rdp-background-color: #E8F5EE !important;
   width: 100%;
-  margin: 0;
-  padding: 8px;
+  padding: 20px 20px 0;
+  font-family: inherit;
+
+  /* ── v9 CSS variables ── */
+  --rdp-accent-color: #243F2F;
+  --rdp-accent-background-color: #C5DABC;
+  --rdp-day-height: 52px;
+  --rdp-day-width: 52px;
+  --rdp-font-family: inherit;
 }
 
+/* Nav buttons */
+.calendar :global(.rdp-nav) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  position: absolute;
+  top: 24px;
+  left: 20px;
+  right: 20px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.calendar :global(.rdp-button_previous),
+.calendar :global(.rdp-button_next) {
+  pointer-events: all;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  color: #1a1a1a;
+  font-size: 1.125rem;
+  opacity: 0.7;
+  transition: opacity 0.15s;
+  border-radius: 50%;
+}
+
+.calendar :global(.rdp-button_previous:hover),
+.calendar :global(.rdp-button_next:hover) { opacity: 1; }
+
+/* Months layout */
+.calendar :global(.rdp-months) {
+  display: flex;
+  gap: 0;
+  position: relative;
+}
+
+.calendar :global(.rdp-month) {
+  flex: 1;
+}
+
+.calendar :global(.rdp-month_caption) {
+  text-align: center;
+  padding: 0 0 16px;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #1a1a1a;
+}
+
+/* Weekday headers */
+.calendar :global(.rdp-weekdays) {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 4px;
+}
+
+.calendar :global(.rdp-weekday) {
+  text-align: center;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: #999;
+  padding: 4px 0 8px;
+}
+
+/* Weeks grid */
+.calendar :global(.rdp-weeks) {}
+
+.calendar :global(.rdp-week) {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+/* Day cell */
+.calendar :global(.rdp-day) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Custom day button */
+.dayBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 52px;
+  padding: 4px 2px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  font-family: inherit;
+  gap: 1px;
+  transition: background 0.1s;
+}
+
+.dayBtn:hover:not(:disabled) {
+  background: #E8F0E5;
+}
+
+.dayNum {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1;
+}
+
+.dayPrice {
+  font-size: 0.6875rem;
+  color: #555;
+  font-weight: 400;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* Disabled / past */
+.calendar :global(.rdp-day_button:disabled) .dayNum,
+.calendar :global([disabled]) .dayNum {
+  color: #ccc;
+}
+
+/* Range start */
+.calendar :global(.rdp-range_start) .dayBtn,
+.calendar :global(.rdp-range_end) .dayBtn {
+  background: #243F2F !important;
+  border-radius: 50%;
+}
+
+.calendar :global(.rdp-range_start) .dayNum,
+.calendar :global(.rdp-range_end) .dayNum { color: white !important; }
+
+.calendar :global(.rdp-range_start) .dayPrice,
+.calendar :global(.rdp-range_end) .dayPrice { color: rgba(255,255,255,0.75) !important; }
+
+/* Range middle */
+.calendar :global(.rdp-range_middle) {
+  background: #C5DABC;
+  border-radius: 0;
+}
+
+.calendar :global(.rdp-range_middle) .dayBtn {
+  border-radius: 0;
+}
+
+/* Range start left half */
+.calendar :global(.rdp-range_start) {
+  background: linear-gradient(to right, transparent 50%, #C5DABC 50%);
+}
+
+/* Range end right half */
+.calendar :global(.rdp-range_end) {
+  background: linear-gradient(to left, transparent 50%, #C5DABC 50%);
+}
+
+/* Today */
+.calendar :global(.rdp-today) .dayNum {
+  color: #243F2F;
+}
+
+/* Calendar footer */
+.calFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px 16px;
+  border-top: 1px solid #E8E8E4;
+  margin-top: 8px;
+}
+
+.calNote {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8125rem;
+  color: #666;
+  background: #F0F0EC;
+  border-radius: 999px;
+  padding: 5px 12px;
+}
+
+.calNoteIcon {
+  font-size: 0.875rem;
+}
+
+.clearBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: #555;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-family: inherit;
+  padding: 4px 0;
+  transition: color 0.15s;
+}
+
+.clearBtn:hover { color: #1a1a1a; }
+
+/* ─── Summary ─── */
 .summary {
   background: #F0FDF4;
   border: 1px solid #BBF7D0;
-  border-radius: var(--radius);
+  border-radius: 12px;
   padding: 12px 16px;
 }
 
@@ -28,21 +237,22 @@
   font-size: 0.9375rem;
 }
 
-.summaryRow strong { color: var(--color-primary); font-size: 1.125rem; }
+.summaryRow strong { color: #243F2F; font-size: 1.125rem; }
 
 .dates {
   font-size: 0.8125rem;
-  color: var(--color-text-muted);
+  color: #666;
   margin-top: 4px;
 }
 
+/* ─── Fields ─── */
 .fields { display: flex; flex-direction: column; gap: 8px; }
 
 .input {
   width: 100%;
-  padding: 10px 14px;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
+  padding: 12px 16px;
+  border: 1.5px solid #E0E0DC;
+  border-radius: 10px;
   font-size: 0.9375rem;
   font-family: inherit;
   outline: none;
@@ -50,47 +260,17 @@
   background: white;
 }
 
-.input:focus { border-color: var(--color-primary); }
+.input:focus { border-color: #243F2F; }
 
-.error {
-  color: #DC2626;
-  font-size: 0.875rem;
-  background: #FEF2F2;
-  border: 1px solid #FECACA;
-  border-radius: var(--radius);
-  padding: 8px 12px;
-}
-
-.submit {
-  width: 100%;
-  background: var(--color-primary);
-  color: white;
-  font-weight: 600;
-  font-size: 1rem;
-  padding: 14px;
-  border-radius: var(--radius);
-  border: none;
-  cursor: pointer;
-  transition: background 0.15s;
-}
-
-.submit:hover:not(:disabled) { background: var(--color-primary-dark); }
-
-.submit:disabled {
-  background: var(--color-border);
-  color: var(--color-text-muted);
-  cursor: not-allowed;
-}
-
-/* Delivery */
+/* ─── Delivery ─── */
 .deliveryBox {
-  border: 1.5px dashed var(--color-border);
-  border-radius: var(--radius);
+  border: 1.5px dashed #E0E0DC;
+  border-radius: 10px;
   padding: 14px 16px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  background: var(--color-surface);
+  background: #FAFAF8;
 }
 
 .deliveryToggle {
@@ -104,18 +284,16 @@
 }
 
 .deliveryToggle input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
-  accent-color: var(--color-primary);
-  cursor: pointer;
-  flex-shrink: 0;
+  width: 18px; height: 18px;
+  accent-color: #243F2F;
+  cursor: pointer; flex-shrink: 0;
 }
 
 .deliveryInput {
   width: 100%;
   padding: 10px 14px;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
+  border: 1.5px solid #E0E0DC;
+  border-radius: 10px;
   font-size: 0.875rem;
   font-family: inherit;
   outline: none;
@@ -124,14 +302,51 @@
   background: white;
 }
 
-.deliveryInput:focus { border-color: var(--color-primary); }
+.deliveryInput:focus { border-color: #243F2F; }
 
 .deliveryNote {
   font-size: 0.8125rem;
-  color: var(--color-text-muted);
-  line-height: 1.5;
+  color: #666;
   background: #FFFBEB;
   border: 1px solid #FDE68A;
-  border-radius: 6px;
+  border-radius: 8px;
   padding: 8px 12px;
+}
+
+/* ─── Error ─── */
+.error {
+  color: #DC2626;
+  font-size: 0.875rem;
+  background: #FEF2F2;
+  border: 1px solid #FECACA;
+  border-radius: 10px;
+  padding: 8px 14px;
+}
+
+/* ─── Submit ─── */
+.submit {
+  width: 100%;
+  background: #E8FF6B;
+  color: #1a1a1a;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 16px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  letter-spacing: -0.01em;
+}
+
+.submit:hover:not(:disabled) {
+  background: #D4EB55;
+  transform: translateY(-1px);
+}
+
+.submit:active:not(:disabled) { transform: scale(0.98); }
+
+.submit:disabled {
+  background: #E8E8E4;
+  color: #999;
+  cursor: not-allowed;
 }
