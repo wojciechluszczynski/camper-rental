@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: error.message }, { status: 400 })
     }
 
-    // Stripe is optional — if key not configured, skip payment and confirm directly
+    // Stripe is optional - if key not configured, skip payment and confirm directly
     if (process.env.STRIPE_SECRET_KEY) {
       const paymentIntent = await stripe.paymentIntents.create({
         amount: Math.round(Number(total_price) * 100),
@@ -52,7 +52,7 @@ export async function POST(req: NextRequest) {
       })
     }
 
-    // No Stripe — mark as pending and return booking_id only
+    // No Stripe - mark as pending and return booking_id only
     return NextResponse.json({ booking_id: booking.id })
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : 'Wewnętrzny błąd serwera'

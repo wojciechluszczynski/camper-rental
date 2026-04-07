@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import { IconCamper } from '@/components/icons'
 import styles from './Gallery.module.css'
 
 interface Props {
@@ -13,7 +14,7 @@ export function Gallery({ images, name }: Props) {
   if (images.length === 0) {
     return (
       <div className={styles.placeholder}>
-        <span>🚐</span>
+        <IconCamper size={48} />
         <p>{name}</p>
       </div>
     )

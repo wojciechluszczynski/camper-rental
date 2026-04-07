@@ -11,50 +11,47 @@
 
 .track {
   display: flex;
-  gap: 0;
-  padding: 0 var(--container-pad);
+  align-items: center;
+  gap: 8px;
+  padding: 16px var(--container-pad);
   max-width: var(--container-max);
   margin: 0 auto;
-  min-width: max-content;
+  width: max-content;
+  min-width: 100%;
+}
+
+/* center the pills when they fit */
+@media (min-width: 720px) {
+  .track {
+    width: auto;
+    justify-content: center;
+  }
 }
 
 .pill {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: 8px;
-  padding: 16px 24px 12px;
+  gap: 6px;
+  padding: 8px 18px;
   background: none;
-  border: none;
-  border-bottom: 2px solid transparent;
-  margin-bottom: -1px;
+  border: 1.5px solid var(--color-border);
+  border-radius: 999px;
   cursor: pointer;
-  transition: border-color 0.15s, color 0.15s;
+  transition: background 0.12s, border-color 0.12s, color 0.12s;
   color: var(--color-text-muted);
-  min-width: 96px;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .pill:hover {
+  background: var(--color-surface);
+  border-color: #bbb;
   color: var(--color-text);
-  border-bottom-color: var(--color-border);
 }
 
 .pill.active {
-  color: var(--color-primary);
-  border-bottom-color: var(--color-primary);
-}
-
-.iconWrap {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-}
-
-.label {
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.01em;
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
 }

@@ -101,7 +101,7 @@ export default async function AdminPage() {
               ) : (
                 bookings.map(b => (
                   <tr key={b.id}>
-                    <td>{b.campers?.name ?? '—'}</td>
+                    <td>{b.campers?.name ?? '-'}</td>
                     <td>{b.user_name}</td>
                     <td><a href={`mailto:${b.user_email}`}>{b.user_email}</a></td>
                     <td>{b.user_phone}</td>

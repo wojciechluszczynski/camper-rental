@@ -4,9 +4,14 @@ export interface CamperSpecs {
   sleeping_spots: number
   length_m: number
   year: number
-  transmission: string
+  transmission?: string
   kitchen: boolean
   bathroom: boolean
+  engine?: string
+  water_tank_l?: number
+  grey_water_l?: number
+  solar_w?: number
+  fridge_l?: number
 }
 
 export interface Camper {

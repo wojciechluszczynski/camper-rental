@@ -1,5 +1,6 @@
 'use client'
 import { useState, useRef, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { DayPicker } from 'react-day-picker'
 import type { DateRange } from 'react-day-picker'
 import { pl } from 'date-fns/locale'
@@ -7,15 +8,12 @@ import { format } from 'date-fns'
 import { IconSearch } from '@/components/icons'
 import styles from './SearchBar.module.css'
 
-interface Props {
-  onSearch: (from: Date | null, to: Date | null) => void
-}
-
 function formatDate(d: Date) {
   return format(d, 'd MMM', { locale: pl })
 }
 
-export function SearchBar({ onSearch }: Props) {
+export function SearchBar() {
+  const router = useRouter()
   const [range, setRange] = useState<DateRange | undefined>()
   const [calOpen, setCalOpen] = useState(false)
   const wrapRef = useRef<HTMLDivElement>(null)
@@ -33,7 +31,6 @@ export function SearchBar({ onSearch }: Props) {
   function handleSelect(r: DateRange | undefined) {
     setRange(r)
     if (r?.from && r?.to) {
-      onSearch(r.from, r.to)
       setCalOpen(false)
     }
   }
@@ -41,13 +38,18 @@ export function SearchBar({ onSearch }: Props) {
   function handleClear(e: React.MouseEvent) {
     e.stopPropagation()
     setRange(undefined)
-    onSearch(null, null)
   }
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    onSearch(range?.from ?? null, range?.to ?? null)
     setCalOpen(false)
+    if (range?.from && range?.to) {
+      const od = format(range.from, 'yyyy-MM-dd')
+      const to = format(range.to, 'yyyy-MM-dd')
+      router.push(`/szukaj?od=${od}&do=${to}`)
+    } else {
+      document.getElementById('fleet')?.scrollIntoView({ behavior: 'smooth' })
+    }
   }
 
   const fromLabel = range?.from ? formatDate(range.from) : 'Odbiór kampera'

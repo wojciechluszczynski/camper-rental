@@ -1,0 +1,346 @@
+.main {
+  min-height: calc(100vh - 64px);
+  background: var(--color-surface);
+}
+
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-pad);
+}
+
+/* ── Hero ── */
+.hero {
+  background: linear-gradient(135deg, #1B4332 0%, #2D6A4F 60%, #40916C 100%);
+  color: white;
+  padding: 56px 0 52px;
+  text-align: center;
+}
+
+.eyebrow {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.65);
+  margin-bottom: 12px;
+}
+
+.heroTitle {
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.heroSub {
+  font-size: 1.0625rem;
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 560px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ── Section ── */
+.section {
+  padding: 56px 0;
+}
+
+.section + .section {
+  padding-top: 0;
+}
+
+.sectionTitle {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  margin-bottom: 32px;
+}
+
+/* ── Cards grid ── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Card ── */
+.card {
+  background: white;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+.cardImage {
+  aspect-ratio: 16 / 9;
+  position: relative;
+  background: var(--color-surface);
+  overflow: hidden;
+}
+
+.cardImg {
+  object-fit: cover;
+}
+
+.cardImgPlaceholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #E8F5E9, #C8E6C9);
+}
+
+.cardBody {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.cardName {
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+.cardPrice {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.priceAmount {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  line-height: 1.2;
+}
+
+.priceUnit {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.cardDesc {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  line-height: 1.55;
+  margin-bottom: 14px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.specList {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.specItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 100px;
+  padding: 3px 10px;
+  line-height: 1.5;
+}
+
+.specIcon {
+  font-size: 0.875rem;
+  line-height: 1;
+}
+
+.cardBtn {
+  display: block;
+  text-align: center;
+  background: var(--color-primary);
+  color: white;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  padding: 12px;
+  border-radius: var(--radius);
+  transition: background 0.15s;
+  margin-top: auto;
+}
+
+.cardBtn:hover {
+  background: var(--color-primary-dark);
+}
+
+/* ── Comparison table ── */
+.tableWrap {
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: white;
+  box-shadow: var(--shadow);
+  /* allow sticky column inside scrollable container */
+  position: relative;
+}
+
+.table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 640px;
+  font-size: 0.9375rem;
+}
+
+.th {
+  background: var(--color-primary);
+  color: white;
+  font-weight: 700;
+  font-size: 0.8125rem;
+  text-align: center;
+  padding: 12px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  white-space: nowrap;
+}
+
+.th:first-child {
+  text-align: left;
+}
+
+.thSticky {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background: var(--color-primary-dark);
+}
+
+.td {
+  padding: 10px 14px;
+  border: 1px solid var(--color-border);
+  text-align: center;
+  color: var(--color-text);
+  vertical-align: middle;
+}
+
+.tdSticky {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: white;
+}
+
+.tr:nth-child(even) .tdSticky {
+  background: var(--color-surface);
+}
+
+.tr:nth-child(even) td {
+  background: var(--color-surface);
+}
+
+.tr:nth-child(even) .tdSticky {
+  background: var(--color-surface);
+}
+
+.tr:hover td {
+  background: #F0FDF4;
+}
+
+.tr:hover .tdSticky {
+  background: #F0FDF4;
+}
+
+.tdLabel {
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--color-text);
+  white-space: nowrap;
+  min-width: 160px;
+}
+
+.tdPrice {
+  font-weight: 800;
+  color: var(--color-primary);
+  font-size: 1rem;
+}
+
+.tdYes {
+  color: #15803D;
+  font-weight: 600;
+}
+
+.tdNo {
+  color: #9CA3AF;
+}
+
+.tableNameLink {
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: white;
+  white-space: normal;
+  text-align: center;
+  display: block;
+  line-height: 1.3;
+}
+
+.tableNameLink:hover {
+  text-decoration: underline;
+}
+
+.tableBtn {
+  display: inline-block;
+  background: var(--color-primary);
+  color: white;
+  font-weight: 600;
+  font-size: 0.8125rem;
+  padding: 7px 14px;
+  border-radius: var(--radius);
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+
+.tableBtn:hover {
+  background: var(--color-primary-dark);
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 40px 0;
+  }
+
+  .hero {
+    padding: 40px 0;
+  }
+}

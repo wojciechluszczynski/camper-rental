@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
+import { IconCheck } from '@/components/icons'
 import { createServiceClient } from '@/lib/supabase-server'
 import styles from './page.module.css'
 
@@ -36,7 +37,9 @@ export default async function ConfirmationPage({ searchParams }: Props) {
         <main className={styles.main}>
           <div className={styles.container}>
             <div className={`${styles.card} ${styles.error}`}>
-              <div className={styles.icon}>❌</div>
+              <div className={styles.icon}>
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+              </div>
               <h1 className={styles.title}>Płatność nieudana</h1>
               <p className={styles.subtitle}>Coś poszło nie tak. Spróbuj ponownie.</p>
               <Link href="/" className={styles.btn}>Wróć do strony głównej</Link>
@@ -54,7 +57,9 @@ export default async function ConfirmationPage({ searchParams }: Props) {
       <main className={styles.main}>
         <div className={styles.container}>
           <div className={styles.card}>
-            <div className={styles.icon}>✅</div>
+            <div className={styles.icon}>
+              <IconCheck size={48} />
+            </div>
             <h1 className={styles.title}>Rezerwacja potwierdzona!</h1>
             {booking ? (
               <>

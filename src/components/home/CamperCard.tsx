@@ -1,26 +1,15 @@
 import Link from 'next/link'
-import { differenceInCalendarDays, format } from 'date-fns'
 import type { Camper } from '@/lib/types'
 import { IconUsers, IconBed, IconYear, IconShower, IconKitchen, IconChevronRight } from '@/components/icons'
 import styles from './CamperCard.module.css'
 
 interface Props {
   camper: Camper
-  dateFrom?: Date | null
-  dateTo?: Date | null
+  linkSearchParams?: string
 }
 
-export function CamperCard({ camper, dateFrom, dateTo }: Props) {
+export function CamperCard({ camper, linkSearchParams = '' }: Props) {
   const { specs } = camper
-
-  const days = dateFrom && dateTo
-    ? differenceInCalendarDays(dateTo, dateFrom) + 1
-    : 0
-  const totalPrice = days > 0 ? days * camper.price_per_day : null
-
-  const searchParams = dateFrom && dateTo
-    ? `?od=${format(dateFrom, 'yyyy-MM-dd')}&do=${format(dateTo, 'yyyy-MM-dd')}`
-    : ''
 
   return (
     <div className={styles.card}>
@@ -30,29 +19,14 @@ export function CamperCard({ camper, dateFrom, dateTo }: Props) {
         ) : (
           <img src="/camper-placeholder.svg" alt={camper.name} className={styles.placeholderImg} />
         )}
-        {days > 0 && (
-          <div className={styles.availBadge}>
-            <span className={styles.availDot} />
-            Dostępny
-          </div>
-        )}
       </div>
 
       <div className={styles.body}>
         <div className={styles.header}>
           <h3 className={styles.name}>{camper.name}</h3>
           <div className={styles.price}>
-            {totalPrice ? (
-              <>
-                <span className={styles.priceAmount}>{totalPrice} zł</span>
-                <span className={styles.priceUnit}>za {days} {days === 1 ? 'dobę' : days < 5 ? 'doby' : 'dób'}</span>
-              </>
-            ) : (
-              <>
-                <span className={styles.priceAmount}>{camper.price_per_day} zł</span>
-                <span className={styles.priceUnit}>/doba</span>
-              </>
-            )}
+            <span className={styles.priceAmount}>{camper.price_per_day} zł</span>
+            <span className={styles.priceUnit}>/doba</span>
           </div>
         </div>
 
@@ -85,8 +59,8 @@ export function CamperCard({ camper, dateFrom, dateTo }: Props) {
           )}
         </div>
 
-        <Link href={`/kamper/${camper.slug}${searchParams}`} className={styles.btn}>
-          Sprawdź dostępność
+        <Link href={`/kamper/${camper.slug}${linkSearchParams}`} className={styles.btn}>
+          Sprawdź i zarezerwuj
           <IconChevronRight size={16} />
         </Link>
       </div>

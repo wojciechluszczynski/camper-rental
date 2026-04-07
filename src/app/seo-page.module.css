@@ -1,7 +1,10 @@
 .page {
-  max-width: 760px;
+  max-width: var(--container-max);
   margin: 0 auto;
   padding: clamp(40px, 6vw, 80px) var(--container-pad);
+  display: grid;
+  grid-template-columns: minmax(0, 720px);
+  justify-content: center;
 }
 
 .breadcrumb {

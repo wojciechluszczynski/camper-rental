@@ -15,7 +15,7 @@ export function getStripe(): Stripe {
   return _stripe
 }
 
-// Keep backward compat — will throw at runtime if key missing, not at build time
+// Keep backward compat - will throw at runtime if key missing, not at build time
 export const stripe = new Proxy({} as Stripe, {
   get(_target, prop) {
     return getStripe()[prop as keyof Stripe]

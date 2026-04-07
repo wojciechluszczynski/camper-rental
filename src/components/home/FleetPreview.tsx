@@ -4,12 +4,10 @@ import styles from './FleetPreview.module.css'
 
 interface Props {
   campers: Camper[]
-  dateFrom?: Date | null
-  dateTo?: Date | null
   searching?: boolean
 }
 
-export function FleetPreview({ campers, dateFrom, dateTo, searching }: Props) {
+export function FleetPreview({ campers, searching }: Props) {
   return (
     <section id="fleet" className={styles.section}>
       <div className={styles.inner}>
@@ -25,8 +23,6 @@ export function FleetPreview({ campers, dateFrom, dateTo, searching }: Props) {
               <CamperCard
                 key={camper.id}
                 camper={camper}
-                dateFrom={dateFrom}
-                dateTo={dateTo}
               />
             ))}
           </div>

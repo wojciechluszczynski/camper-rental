@@ -5,7 +5,7 @@ import { Footer } from '@/components/layout/Footer'
 import styles from '../seo-page.module.css'
 
 export const metadata: Metadata = {
-  title: 'Polityka prywatności — Kamperownia',
+  title: 'Polityka prywatności - Kamperownia',
   description: 'Polityka prywatności serwisu Kamperownia. Informacje o przetwarzaniu danych osobowych zgodnie z RODO.',
 }
 
@@ -30,7 +30,7 @@ export default function PolitykaPrywatnosci() {
             <ul className={styles.ul}>
               <li>Dane identyfikacyjne: imię, nazwisko, numer telefonu, adres e-mail.</li>
               <li>Dane rezerwacji: termin wynajmu, wybrany kamper, adres dostawy (jeśli podano).</li>
-              <li>Dane płatności: obsługiwane przez Stripe — nie przechowujemy numerów kart.</li>
+              <li>Dane płatności: obsługiwane przez Stripe - nie przechowujemy numerów kart.</li>
               <li>Dane techniczne: adres IP, typ przeglądarki (logi serwera).</li>
             </ul>
           </div>
@@ -40,14 +40,14 @@ export default function PolitykaPrywatnosci() {
             <ul className={styles.ul}>
               <li>Realizacja rezerwacji i umowy wynajmu (podstawa prawna: art. 6 ust. 1 lit. b RODO).</li>
               <li>Kontakt w sprawach rezerwacji (podstawa prawna: prawnie uzasadniony interes).</li>
-              <li>Newsletter — tylko za Twoją zgodą, z możliwością wycofania w każdej chwili.</li>
+              <li>Newsletter - tylko za Twoją zgodą, z możliwością wycofania w każdej chwili.</li>
             </ul>
           </div>
 
           <div className={styles.section}>
             <h2 className={styles.h2}>Twoje prawa</h2>
             <p className={styles.p}>
-              Masz prawo dostępu, sprostowania, usunięcia i przenoszenia danych, a także prawo do sprzeciwu i ograniczenia przetwarzania. Skontaktuj się z nami pod adresem <a href="mailto:kontakt@kamperownia.eu">kontakt@kamperownia.eu</a>.
+              Masz prawo dostępu, sprostowania, usunięcia i przenoszenia danych, a także prawo do sprzeciwu i ograniczenia przetwarzania. Skontaktuj się z nami pod adresem <a href="mailto:kontakt@">kontakt@</a>.
             </p>
           </div>
 

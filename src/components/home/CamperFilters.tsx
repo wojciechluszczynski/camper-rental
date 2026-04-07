@@ -64,10 +64,8 @@ export function CamperFilters({ active, onChange }: Props) {
             onClick={() => onChange(key)}
             type="button"
           >
-            <span className={styles.iconWrap}>
-              <Icon size={36} />
-            </span>
-            <span className={styles.label}>{label}</span>
+            <Icon size={20} />
+            <span>{label}</span>
           </button>
         ))}
       </div>

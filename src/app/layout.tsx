@@ -16,7 +16,7 @@ const dmSerifDisplay = DM_Serif_Display({
 })
 
 export const metadata: Metadata = {
-  title: 'Kamperownia — Wynajem Kamperów Rzeszów',
+  title: 'Kamperownia - Wynajem Kamperów Rzeszów',
   description: 'Wynajem kamperów w Rzeszowie. Flota Chausson, Rimor, Bürstner. Rezerwacja online, odbiór Lubelska 50. BLIK, Visa, Apple Pay.',
 }
 
