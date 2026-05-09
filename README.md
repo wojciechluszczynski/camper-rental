@@ -1,40 +1,38 @@
-# Kamperownia - wynajem kamperów z Rzeszowa
+# Kamperownia
 
-Aplikacja webowa do wynajmu kamperów z możliwością rezerwacji online.
+Online booking platform for a camper van rental company based in Rzeszów, Poland — full reservation flow with availability calendar, fleet catalogue and admin panel.
 
-**Wersja demo:** [camper-rental-weld.vercel.app](https://camper-rental-weld.vercel.app)
+**Live:** [camper-rental-weld.vercel.app](https://camper-rental-weld.vercel.app)
 
 ---
 
-## Stack technologiczny
+## Features
 
-| Warstwa | Technologia |
+- **Date-range search** — availability calendar powered by react-day-picker; filters results to bookable vehicles only
+- **Fleet catalogue** — 7 camper models with category filters (weekend, family, solar, up to 6 people)
+- **Fleet comparison** — side-by-side spec table across all models
+- **Camper detail pages** — gallery, full specification, per-vehicle availability calendar and booking form
+- **Booking flow** — reservation form → Stripe payment → confirmation page
+- **Booking admin panel** — internal view of all reservations with status management
+- **SEO landing pages** — location-specific pages for Rzeszów, Warsaw, weekend trips and European routes
+- **Contact & FAQ** — OpenStreetMap embed, GDPR-compliant privacy policy and rental terms
+
+---
+
+## Stack
+
+| Layer | Technology |
 |---|---|
 | Framework | Next.js 16 (App Router) + React 19 |
-| Baza danych | Supabase (PostgreSQL) |
-| Stylowanie | CSS Modules (bez Tailwind) |
-| Fonty | DM Sans + DM Serif Display (Google Fonts) |
-| Kalendarz | react-day-picker v9 |
+| Database | Supabase (PostgreSQL) |
+| Payments | Stripe (checkout + webhook) |
+| Styling | CSS Modules + DM Sans / DM Serif Display |
+| Booking calendar | react-day-picker v9 |
 | Hosting | Vercel |
 
 ---
 
-## Funkcje
-
-- Wyszukiwanie po datach z kalendarzem zakresowym
-- Flota 7 kamperów z filtrami kategorii (na weekend, dla rodziny, z solarami itd.)
-- Strona /flota z kartami i tabelą porownawczą specyfikacji
-- Strona /szukaj z wynikami dostępności po wybraniu dat
-- Rezerwacja online - formularz, potwierdzenie
-- Strona kampera z galerią, specyfikacją i kalendarzem dostępności
-- Podstrony SEO - Rzeszów, Polska, Weekend, Europa, Warszawa
-- Strona kontakt z mapą OpenStreetMap i FAQ
-- Regulamin i polityka prywatności
-- Panel administracyjny rezerwacji
-
----
-
-## Instalacja lokalna
+## Local development
 
 ```bash
 git clone https://github.com/wojciechluszczynski/camper-rental.git
@@ -42,95 +40,29 @@ cd camper-rental
 npm install
 ```
 
-Stwórz plik `.env.local`:
+Create `.env.local`:
 
 ```env
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
-# Stripe - opcjonalny (bez niego platnosci sa pomijane)
-STRIPE_SECRET_KEY=sk_...
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_...
-STRIPE_WEBHOOK_SECRET=whsec_...
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+STRIPE_SECRET_KEY=
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=
+STRIPE_WEBHOOK_SECRET=
 ```
 
 ```bash
 npm run dev
+# → http://localhost:3000
 ```
-
-Aplikacja dostępna pod: `http://localhost:3000`
 
 ---
 
-## Baza danych
+## Database setup
 
-### Schema
+Run in Supabase SQL Editor:
 
 ```bash
-# W Supabase SQL Editor wklej i uruchom:
-supabase/schema.sql
+supabase/schema.sql   # table definitions
+supabase/seed.sql     # 7 camper models with photos and specs
 ```
-
-### Dane poczatkowe (7 kamperów)
-
-```bash
-# Po uruchomieniu schema - wklej i uruchom:
-supabase/seed.sql
-```
-
-Seed zawiera 7 modeli kamperów z prawdziwymi zdjeciami i opisami:
-- Chausson V594 Max (2023)
-- Chausson 640 (z solarami 400W)
-- Burstner Limited T 660
-- Chausson 777GA Titanium (2025)
-- Chausson 720 Titanium (5 osób)
-- Rimor Kilig 5 (2025, 6 osób)
-- Rimor Kilig 50 (2025, 6 osób)
-
----
-
-## Deployment na Vercel
-
-1. Polacz repo na [vercel.com](https://vercel.com/new)
-2. Dodaj zmienne srodowiskowe (Settings - Environment Variables)
-3. Deploy - Vercel wykrywa Next.js automatycznie
-
----
-
-## Struktura projektu
-
-```
-src/
-+-- app/
-|   +-- page.tsx                    # Strona glowna
-|   +-- flota/                      # Nasza flota - karty + tabela porownawcza
-|   +-- szukaj/                     # Wyniki wyszukiwania po datach
-|   +-- kamper/[slug]/              # Strona kampera z formularzem rezerwacji
-|   +-- kontakt/                    # Kontakt z mapa OSM
-|   +-- regulamin/                  # Regulamin wynajmu
-|   +-- polityka-prywatnosci/       # Polityka prywatnosci
-|   +-- potwierdzenie/              # Potwierdzenie rezerwacji
-|   +-- admin/                      # Panel rezerwacji
-|   +-- api/
-|   |   +-- bookings/create/        # Tworzenie rezerwacji
-|   |   +-- stripe/webhook/         # Stripe webhook
-|   +-- wynajem-kampera-*/          # Podstrony SEO (5 lokalizacji)
-+-- components/
-|   +-- home/                       # SearchBar, CamperCard, FleetPreview, CamperFilters
-|   +-- camper/                     # Gallery, Specs, BookingForm
-|   +-- layout/                     # Header, Footer
-|   +-- icons/                      # SVG ikony inline
-+-- lib/
-    +-- supabase.ts / supabase-server.ts
-    +-- stripe.ts
-    +-- types.ts
-supabase/
-+-- schema.sql                      # Definicja tabel
-+-- seed.sql                        # Dane startowe
-```
-
----
-
-## Dane kontaktowe
-
-Te dane są do uzgodnienia z klientem przed publikacją na docelowej domenie.
